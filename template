@@ -1,0 +1,46 @@
+# Шаблон файла для установки пакета 'freedownloadmanager' в VoidLinux
+pkgname=freedownloadmanager
+version=6.28.2.6326
+revision=1
+archs="x86_64"
+hostmakedepends="curl tar xz"
+depends="openssl xdg-utils ffmpeg libtorrent gst-plugins-base1"
+short_desc="Мощный современный загрузчик и органайзер"
+maintainer="Airat Aiupov <mraiupov@yandex.ru>"
+license="Freeware"
+homepage="https://www.freedownloadmanager.org/"
+nostrip=yes
+restricted=yes
+repository=nonfree
+
+_sourceUrl="https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
+distfiles="${_sourceUrl}"
+checksum=11b70c904afbb8c88144152ed4a3380812a2dd59b41600aa48adb4e4ac3d0a24
+
+do_extract() {
+    mkdir -p ${DESTDIR}
+    ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${distfiles##*/}
+}
+
+do_install() {
+    tar xf data.tar.xz -C ${DESTDIR}
+
+    # Исправление .desktop файла
+    sed -i 's|/opt/freedownloadmanager/icon\.png|freedownloadmanager|g' \
+        ${DESTDIR}/usr/share/applications/freedownloadmanager.desktop
+    sed -i 's|/opt/freedownloadmanager/fdm|/usr/bin/fdm|g' \
+        ${DESTDIR}/usr/share/applications/freedownloadmanager.desktop
+
+    # Добавление StartupWMClass
+    sed -i '/^Exec=/a StartupWMClass=fdm' \
+        ${DESTDIR}/usr/share/applications/freedownloadmanager.desktop
+
+    # Установка иконки
+    mkdir -p ${DESTDIR}/usr/share/icons/hicolor/256x256/apps
+    ln -sf /opt/freedownloadmanager/icon.png \
+        ${DESTDIR}/usr/share/icons/hicolor/256x256/apps/freedownloadmanager.png
+
+    # Создание симлинка для бинарника
+    mkdir -p ${DESTDIR}/usr/bin
+    ln -sf /opt/freedownloadmanager/fdm ${DESTDIR}/usr/bin/fdm
+}
