@@ -44,3 +44,5 @@ do_install() {
     mkdir -p ${DESTDIR}/usr/bin
     ln -sf /opt/freedownloadmanager/fdm ${DESTDIR}/usr/bin/fdm
 }
+
+shlib_requires="libicuuc.so.73 libicudata.so.73 libzstd.so.1 libgssapi_krb5.so.2 libresolv.so.2 libssl.so.3 libQt6QuickDialogs2Utils.so.6 libgthread-2.0.so.0 libdbus-1.so.3 libfontconfig.so.1 librt.so.1 libpulse.so.0"
