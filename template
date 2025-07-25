@@ -1,6 +1,6 @@
 # Шаблон файла для установки пакета 'freedownloadmanager' в VoidLinux
 pkgname=freedownloadmanager
-version=6.28.2.6326
+version=6.29
 revision=1
 archs="x86_64"
 hostmakedepends="curl tar xz"
@@ -15,7 +15,7 @@ repository=nonfree
 
 _sourceUrl="https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
 distfiles="${_sourceUrl}"
-checksum=11b70c904afbb8c88144152ed4a3380812a2dd59b41600aa48adb4e4ac3d0a24
+checksum=59f0792433b60ce64e40a5aff84c3e1d8c902f659b621911eb8a1e9ae7d7bca5
 
 do_extract() {
     mkdir -p ${DESTDIR}
@@ -44,5 +44,3 @@ do_install() {
     mkdir -p ${DESTDIR}/usr/bin
     ln -sf /opt/freedownloadmanager/fdm ${DESTDIR}/usr/bin/fdm
 }
-
-shlib_requires="libicuuc.so.73 libicudata.so.73 libzstd.so.1 libgssapi_krb5.so.2 libresolv.so.2 libssl.so.3 libQt6QuickDialogs2Utils.so.6 libgthread-2.0.so.0 libdbus-1.so.3 libfontconfig.so.1 librt.so.1 libpulse.so.0"
